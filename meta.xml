@@ -10,7 +10,7 @@
     <script src="paramedicinal_client_logic.lua" type="client"></script>
     <script src="paramedicinal_client_ux.lua" type="client"></script>
     <oop>true</oop>
-    <info gamemodes="race" type="map" name="Paramedic" author="Dr. Ei Mu" version="1.1.0" edf:definition="paramedical.edf"></info>
+    <info gamemodes="race" type="map" name="Paramedic" author="Dr. Ei Mu" version="1.2.1" edf:definition="paramedical.edf"></info>
     <map src="race-paramedic.map" dimension="0"></map>
     <settings>
         <setting name="#skins" value='[ &quot;lvemt1&quot; ]'></setting>
