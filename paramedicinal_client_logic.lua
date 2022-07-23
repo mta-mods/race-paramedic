@@ -122,6 +122,19 @@ function initializePatient(id)
 	end)
 end
 
+function resetPickups()
+	g_OpenSeats = g_MAX_PATIENTS_IN_VEHICLE
+	-- dying several times in a row w/o hitting a checkpoint puts you back without
+	-- resetting patients so you'll have to pick up level + 1 patients for level
+	for id in pairs(g_PatientStates) do
+		g_PatientStates[id] = false
+		triggerEvent(g_SHOW_PATIENT_EVENT, localPlayer, id)
+	end
+end
+
+addEvent(g_CLIENT_SPECTATORED_EVENT, true)
+addEventHandler(g_CLIENT_SPECTATORED_EVENT, localPlayer, resetPickups)
+
 addEventHandler("onClientResourceStart", resourceRoot, function()
 	for id = 1, #g_HOSPITAL_POSITIONS do
 		initializeHospital(id)
@@ -134,15 +147,7 @@ addEventHandler("onClientResourceStart", resourceRoot, function()
 	getNewPatients()
 end)
 
-addEventHandler("onClientPlayerWasted", localPlayer, function()
-	g_OpenSeats = g_MAX_PATIENTS_IN_VEHICLE
-	-- dying several times in a row w/o hitting a checkpoint puts you back without
-	-- resetting patients so you'll have to pick up level + 1 patients for level
-	for id in pairs(g_PatientStates) do
-		g_PatientStates[id] = false
-		triggerEvent(g_SHOW_PATIENT_EVENT, localPlayer, id)
-	end
-end)
+addEventHandler("onClientPlayerWasted", localPlayer, resetPickups)
 
 addEventHandler("onClientExplosion", root, function(x, y, z, t)
 	if t == 4 then
